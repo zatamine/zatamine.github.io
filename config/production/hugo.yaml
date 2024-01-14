@@ -1,0 +1,30 @@
+title: zatamine's blog
+
+googleAnalytics: UA-1707302-9
+
+
+analytics:
+    google:
+      SiteVerificationTag: "UA-1707302-9"
+
+params:
+  subtitle: zatamine's blog 
+  title: Amine's blog
+  description: "Software Engineering life"
+  keywords: [Development, Software, Engineering]
+  author: Amine
+
+menus:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 01
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
