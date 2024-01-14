@@ -12,19 +12,5 @@ params:
   title: Amine's blog
   description: "Software Engineering life"
   keywords: [Development, Software, Engineering]
-  author: Amine
+  author: Me
 
-menus:
-  main:
-    - identifier: home
-      name: Home
-      url: /
-      weight: 01
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 20
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 30
