@@ -2,15 +2,3 @@ title: zatamine's blog
 
 googleAnalytics: UA-1707302-9
 
-
-analytics:
-    google:
-      SiteVerificationTag: "UA-1707302-9"
-
-params:
-  subtitle: zatamine's blog 
-  title: Amine's blog
-  description: "Software Engineering life"
-  keywords: [Development, Software, Engineering]
-  author: Me
-
