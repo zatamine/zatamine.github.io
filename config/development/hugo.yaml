@@ -1,6 +1,6 @@
 languageCode: 'en-us'
 title: zatamine's blog
-theme: 'PaperMod'
+theme: 'zatamine'
 pagenate: '5'
 
 enableRobotsTXT: true
