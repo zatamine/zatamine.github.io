@@ -1,19 +1,18 @@
-baseURL: 'https://blog.zatamine.com/'
 languageCode: 'en-us'
 title: zatamine's blog
 theme: 'PaperMod'
 pagenate: '5'
 
 enableRobotsTXT: true
-buildDrafts: false
-buildFuture: false
-buildExpired: false
+buildDrafts: true
+buildFuture: true
+buildExpired: true
 
-googleAnalytics: UA-123-45
+  #googleAnalytics: UA-123-45
 
 minify:
   disableXML: true
-  minifyOutput: true
+  minifyOutput: false
 
 
 params:
