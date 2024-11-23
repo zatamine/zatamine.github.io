@@ -1,0 +1,35 @@
+# https://taskfile.dev
+
+version: '3'
+
+env:
+  TASK_VERSION: "v3.40.0"
+  HUGO_VERSION: "0.139.2"
+
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  task:
+    desc: "Update task in ~/bin and setup zsh completion"
+    cmds:
+      - echo -n "Current " && task --version 
+      - sh -c "$(rm -f ~/bin/task; curl -sS --location https://taskfile.dev/install.sh)" -- -b ~/bin $TASK_VERSION
+      - sh -c "$(task --completion zsh  > ~/.zsh_functions/_task)"
+      - echo -n "Updated to "; task --version 
+  hugo:install:
+    desc: "Install/Update hugo"
+    cmds:
+      - wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.deb 
+      - sudo dpkg -i "hugo_${HUGO_VERSION}_linux-amd64.deb"
+      - rm "hugo_${HUGO_VERSION}_linux-amd64.deb"
+  hugo:serve:
+    cmds:
+      - hugo serve
+
+
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
