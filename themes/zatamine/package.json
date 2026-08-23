@@ -1,0 +1,21 @@
+{
+  "name": "zatamine-theme-ui-tests",
+  "version": "1.0.0",
+  "description": "UI tests for zatamine Hugo theme",
+  "main": "ui-test.js",
+  "scripts": {
+    "test:css": "node tests/css-variables.test.js",
+    "test:dark-mode": "node tests/dark-mode.test.js",
+    "test:ui": "node tests/ui.test.js",
+    "test:manual": "node tests/manual-dark-mode.test.js",
+    "test": "npm run test:css && npm run test:dark-mode && npm run test:ui"
+  },
+  "keywords": [
+    "hugo",
+    "theme",
+    "ui",
+    "testing"
+  ],
+  "author": "Zatamine Theme Team",
+  "license": "MIT"
+}
