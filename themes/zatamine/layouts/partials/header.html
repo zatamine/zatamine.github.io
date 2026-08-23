@@ -1,2 +1,17 @@
-<h1>{{ site.Title }}</h1>
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<header class="header">
+  <div class="header-content">
+    <h1 class="site-title">
+      <a href="{{ .Site.BaseURL }}">{{ site.Title }}</a>
+    </h1>
+    <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">🌙</span>
+    </button>
+  </div>
+  <div class="mobile-menu-toggle">
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+  {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+</header>

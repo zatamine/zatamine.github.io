@@ -1,10 +1,64 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-
-  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := .Date | time.Format ":date_long" }}
-  <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-
-  {{ .Content }}
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  <article class="post">
+    <header class="post-header">
+      <h1>{{ .Title }}</h1>
+      <div class="post-meta">
+        <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
+        {{ if .Params.author }}
+          <span></span>by {{ .Params.author }}</span>
+        {{ end }}
+        {{ if .ReadingTime }}
+          <span>· {{ .ReadingTime }} min read</span>
+        {{ end }}
+        {{ if .Lastmod }}
+          <span>· Updated: {{ .Lastmod | time.Format ":date_long" }}</span>
+        {{ end }}
+      </div>
+    </header>
+    
+    {{ .Content }}
+    
+    <footer class="post-footer">
+      <!-- Author info -->
+      {{ if .Params.author }}
+        <div class="author-info">
+          {{ if .Params.author_image }}
+            <img src="{{ .Params.author_image }}" alt="{{ .Params.author }}" class="author-image">
+          {{ end }}
+          <div class="author-details">
+            <h3>About {{ .Params.author }}</h3>
+            <p>Author bio would go here.</p>
+          </div>
+        </div>
+      {{ end }}
+      
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+      
+      <!-- Share buttons -->
+      <div class="share-buttons">
+        <span>Share:</span>
+        <a href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink }}&title={{ .Title }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      
+      <!-- Table of Contents -->
+      {{ if .Params.toc }}
+        <div class="table-of-contents">
+          <h2>Table of Contents</h2>
+          {{ .TableOfContents }}
+        </div>
+      {{ end }}
+      
+      <!-- Previous/Next post navigation -->
+      <nav class="post-navigation">
+        {{ with .Prev }}
+          <a href="{{ .RelPermalink }}">← Previous</a>
+        {{ end }}
+        {{ with .Next }}
+          <a href="{{ .RelPermalink }}">Next →</a>
+        {{ end }}
+      </nav>
+    </footer>
+  </article>
 {{ end }}

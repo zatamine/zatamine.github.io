@@ -1,6 +1,6 @@
-languageCode: 'en-us'
+languageCode: 'en-US'
 title: zatamine's blog
-theme: 'PaperMod'
+theme: 'zatamine'
 pagenate: '5'
 
 enableRobotsTXT: true
@@ -8,7 +8,7 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: UA-123-45
+googleAnalytics: "UA-12345678-1"
 
 minify:
   disableXML: true

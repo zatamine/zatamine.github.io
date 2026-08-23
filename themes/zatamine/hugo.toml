@@ -1,6 +1,9 @@
-baseURL = 'https://example.org/'
+# Default configuration for the theme (to be used as example in documentation)
+# This file should not be modified by users, but can be used to understand defaults.
+
+baseURL = 'https://example.com'
 languageCode = 'en-US'
-title = 'My New Hugo Site'
+title = 'Zatamine Theme Demo'
 
 [[menus.main]]
 name = 'Home'
