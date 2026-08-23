@@ -1,0 +1,51 @@
+# Taskfile for Zatamine Theme
+# Run tasks with: task [task-name]
+
+version: '3'
+
+tasks:
+  serve:
+    desc: "Serve the site with Hugo server"
+    cmd: "hugo server --port 1314 --disableLiveReload"
+    silent: true
+
+  build:
+    desc: "Build the site for production"
+    cmd: "hugo --minify"
+    silent: true
+
+  dev:
+    desc: "Build and serve in development mode"
+    cmd: "hugo server --disableFastRender"
+    silent: true
+
+  clean:
+    desc: "Clean the public directory"
+    cmd: "rm -rf public/*"
+    silent: true
+
+  test:
+    desc: "Run basic validation checks"
+    cmds:
+      - "hugo version"
+      - "hugo --minify"
+    silent: true
+
+  test-ui:
+    desc: "Run UI tests for the theme"
+    cmds:
+      - echo 'Running UI tests...'
+      - node ui-test.js
+      - node test-css-variables.js
+      - node dark-mode-test.js
+    silent: true
+
+  deploy:
+    desc: "Deploy the site (requires deployment configuration)"
+    cmd: "hugo --minify && ls -la public/"
+    silent: true
+
+  help:
+    desc: "Show available tasks"
+    cmd: "task --list"
+    silent: true
