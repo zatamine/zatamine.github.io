@@ -1,0 +1,21 @@
+theme = "zatamine"
+baseURL = "/"
+languageCode = "en-us"
+title = "Amine — Independent Software Engineer & SRE Consultant"
+
+[params]
+  description = "I build high-throughput Go backends, engineer resilient Kubernetes platforms on AWS/on-prem, and lead zero-downtime infrastructure migrations."
+  email = "mailto:amine@example.com" # Placeholder
+  github = "https://github.com/amine"
+  twitter = "https://x.com/amine"
+  linkedin = "https://linkedin.com/in/amine"
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = "monokai" # Using a dark theme as requested
+    lineNos = true
