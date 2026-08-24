@@ -1,64 +1,39 @@
+{{/* Layout: Single Blog Post */}}
+{{/* 
+  Individual blog post view with Table of Contents and content.
+  Extends baseof.html
+*/}}
+{{ define "title" }}{{ .Title }} | {{ .Site.Title }}{{ end }}
+
 {{ define "main" }}
-  <article class="post">
-    <header class="post-header">
-      <h1>{{ .Title }}</h1>
-      <div class="post-meta">
-        <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
-        {{ if .Params.author }}
-          <span>by {{ .Params.author }}</span>
-        {{ end }}
+  <article class="blog-single container mt-16 mb-16">
+    <header class="blog-header">
+      <h1 class="blog-title">{{ .Title }}</h1>
+      
+      <div class="blog-meta">
+        <span class="post-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
         {{ if .ReadingTime }}
-          <span>· {{ .ReadingTime }} min read</span>
+          <span class="post-meta">{{ .ReadingTime }} min read</span>
         {{ end }}
-        {{ if .Lastmod }}
-          <span>· Updated: {{ .Lastmod | time.Format ":date_long" }}</span>
+        {{ if .Params.author }}
+          <span class="post-meta">by {{ .Params.author }}</span>
+        {{ end }}
+      </div>
+      
+      <div class="tags">
+        {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . | lower }}</a>
         {{ end }}
       </div>
     </header>
     
-    {{ .Content }}
+    <div class="blog-content prose">
+      {{ .Content }}
+    </div>
     
-    <footer class="post-footer">
-      <!-- Author info -->
-      {{ if .Params.author }}
-        <div class="author-info">
-          {{ if .Params.author_image }}
-            <img src="{{ .Params.author_image }}" alt="{{ .Params.author }}" class="author-image">
-          {{ end }}
-          <div class="author-details">
-            <h3>About {{ .Params.author }}</h3>
-            <p>Author bio would go here.</p>
-          </div>
-        </div>
-      {{ end }}
-      
-      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-      
-      <!-- Share buttons -->
-      <div class="share-buttons">
-        <span>Share:</span>
-        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Twitter</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink | urlquery }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-      
-      <!-- Table of Contents -->
-      {{ if .Params.toc }}
-        <div class="table-of-contents">
-          <h2>Table of Contents</h2>
-          {{ .TableOfContents }}
-        </div>
-      {{ end }}
-      
-      <!-- Previous/Next post navigation -->
-      <nav class="post-navigation">
-        {{ with .Prev }}
-          <a href="{{ .RelPermalink }}">← Previous</a>
-        {{ end }}
-        {{ with .Next }}
-          <a href="{{ .RelPermalink }}">Next →</a>
-        {{ end }}
-      </nav>
-    </footer>
+    <aside class="toc">
+      <h3></h3>Table of Contents</h3>
+      {{ .TableOfContents }}
+    </aside>
   </article>
 {{ end }}

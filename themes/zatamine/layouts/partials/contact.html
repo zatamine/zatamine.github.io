@@ -1,0 +1,27 @@
+{{/* Partial: Contact Section */}}
+{{/* 
+  Displays contact information and social links.
+  Expected context: Homepage context
+*/}}
+<section class="contact-section container mt-16 mb-16">
+  <h2></h2>Reach Out</h2>
+  <p class="mt-4">Let's build something remarkable together.</p>
+  
+  <div class="contact-buttons">
+    {{ if .Site.Params.email }}
+      <a href="mailto:{{ .Site.Params.email }}" class="btn">Send an Email</a>
+    {{ end }}
+    
+    {{ if .Site.Params.github }}
+      <a href="{{ .Site.Params.github }}" class="social-link">GitHub</a>
+    {{ end }}
+    
+    {{ if .Site.Params.twitter }}
+      <a href="{{ .Site.Params.twitter }}" class="social-link">X (Twitter)</a>
+    {{ end }}
+    
+    {{ if .Site.Params.linkedin }}
+      <a href="{{ .Site.Params.linkedin }}" class="social-link">LinkedIn</a>
+    {{ end }}
+  </div>
+</section>

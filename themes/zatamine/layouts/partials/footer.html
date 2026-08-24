@@ -1,11 +1,18 @@
-<footer class="footer">
-  <div class="footer-content">
-    <p>&copy; {{ now.Year }} {{ site.Title }}. All rights reserved.</p>
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="/about">About</a>
-      <a href="/posts">Posts</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </nav>
+{{/* Partial: Footer */}}
+{{/* 
+  Site footer with copyright, RSS feed, and status indicator.
+  Expected context: Any page context
+*/}}
+<footer class="footer container">
+  <div class="copyright">
+    © {{ now.Format "2006" }} Amine. All rights reserved.
   </div>
-  <p class="powered-by">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a></p>
+  
+  <div class="rss-link">
+    <a href="""/index.xml" class="social-link">RSS</a>
+  </div>
+  
+  {{ if .Site.Params.uptime }}
+    <div class="status-badge">⚡ {{ .Site.Params.uptime }}</div>
+  {{ end }}
 </footer>

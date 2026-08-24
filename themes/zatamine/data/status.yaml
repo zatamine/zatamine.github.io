@@ -1,0 +1,59 @@
+# System Status Data
+# Real-time monitoring information for display
+
+status:
+  overall: "operational"
+  uptime: "99.999 %"
+  ping: "~8ms"
+  last_updated: "2024-01-15T14:30:00Z"
+
+components:
+  - name: "API Gateway"
+    status: "operational"
+    description: "Handling requests with <100ms average latency"
+  
+  - name: "Database"
+    status: "operational"
+    description: "Replication lag < 100ms across regions"
+  
+  - name: "Monitoring"
+    status: "operational"
+    description: "All Prometheus targets healthy"
+  
+  - name: "CI/CD"
+    status: "operational"
+    description: "Latest deployment successful"
+  
+  - name: "DNS"
+    status: "operational"
+    description: "All records propagating globally"
+
+historical_uptime:
+  last_30_days: "99.999 %"
+  last_90_days: "99.997 %"
+  last_365_days: "99.993 %"
+
+key_metrics:
+  - name: "Average Response Time"
+    value: "47ms"
+    trend: "down"
+  
+  - name: "Error Rate"
+    value: "< 0.01%"
+    trend: "stable"
+  
+  - name: "Throughput"
+    value: "~5,000 RPS"
+    trend: "up"
+  
+  - name: "Database Connections"
+    value: "342/500 active"
+    trend: "stable"
+  
+  - name: "Memory Usage"
+    value: "62% of 32GB"
+    trend: "up"
+  
+  - name: "CPU Usage"
+    value: "48% of 8 vCPUs"
+    trend: "stable"

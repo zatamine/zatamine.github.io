@@ -1,0 +1,14 @@
+name = "Zatamine"
+description = "A clean, modern Hugo theme for personal developer portfolios and technical blogs, designed for software engineers and SRE consultants."
+license = "MIT"
+homepage = "https://github.com/zatamine/zatamine-theme"
+demothomesite = "https://zatamine.com"
+min_version = "0.110.0"
+
+[author]
+  name = "Amine"
+  homepage = "https://zatamine.com"
+
+[features]
+  themes = ["dark", "light"]
+  features = ["blog", "portfolio", "responsive design", "syntax highlighting", "SEO optimized"]

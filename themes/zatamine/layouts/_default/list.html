@@ -1,41 +1,61 @@
-{{ define "main" }}
-  <header class="list-header">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
-  </header>
-  
-  <div class="posts-list">
-    {{ range .Pages }}
-      <article class="post-preview">
-        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-        <p class="post-meta">
-          <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
-          {{ if .Params.author }}
-            <span>by {{ .Params.author }}</span>
-          {{ end }}
-          {{ if .ReadingTime }}
-            <span>· {{ .ReadingTime }} min read</span>
-          {{ end }}
-        </p>
-        {{ if .Params.featured_image }}
-          <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="featured-image">
-        {{ end }}
-        <p>{{ .Summary }}</p>
-        <a href="{{ .RelPermalink }}" class="read-more">Read more →</a>
-      </article>
-    {{ end }}
-  </div>
+{{/* Layout: Blog Archive */}}
+{{/* 
+  Blog listing page showing all posts in chronological order.
+  Extends baseof.html
+*/}}
+{{ define "title" }}{{ .Site.Title }} | Blog{{ end }}
 
-  <!-- Pagination -->
-  {{ if or .Paginator.HasPrev .Paginator.HasNext }}
-    <nav class="pagination">
-      {{ if .Paginator.HasPrev }}
-        <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
+{{ define "main" }}
+  <section class="blog-archive container mt-16 mb-16">
+    <h1 class="blog-title">Technical Blog</h1>
+    <p class="blog-description">Deep dives into Go development, SRE practices, cloud infrastructure, and zero-downtime migrations.</p>
+    
+    {{ if .Content }}
+      <div class="blog-content">
+        {{ .Content }}
+      </div>
+    {{ end }}
+    
+    <div class="posts-list">
+      {{ range .Pages.ByDate.Reverse }}
+        <article class="post-card mt-16">
+          <div class="post-header">
+            <span class="post-meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+            {{ if .ReadingTime }}
+              <span class="post-meta">{{ .ReadingTime }} min read</span>
+            {{ end }}
+          </div>
+          
+          <h2 class="post-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h2>
+          
+          {{ if .Summary }}
+            <div class="post-excerpt">
+              {{ .Summary }}
+            </div>
+          {{ end }}
+          
+          <div class="tags">
+            {{ range .Params.tags }}
+              <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . | lower }}</a>
+            {{ end }}
+          </div>
+        </article>
       {{ end }}
-      <span>{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
-      {{ if .Paginator.HasNext }}
-        <a href="{{ .Paginator.Next.URL }}">Next →</a>
-      {{ end }}
-    </nav>
-  {{ end }}
+    </div>
+    
+    <!-- Pagination -->
+    {{ if or .Paginator.HasPrev .Paginator.HasNext }}
+      <nav class="pagination mt-16">
+        {{ if .Paginator.HasPrev }}
+          <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
+        {{ end }}
+        <span>{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
+        {{ if .Paginator.HasNext }}
+          <a href="{{ .Paginator.Next.URL }}">Next →</a>
+        {{ end }}
+      </nav>
+    {{ end }}
+  </section>
 {{ end }}
