@@ -1,37 +1,64 @@
 {{ define "main" }}
-<div class="container mx-auto px-4 py-8">
-  <article class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold mb-2">{{ .Title }}</h1>
-    <p class="text-slate-400 mb-6">{{ .Date.Format "January 2, 2006" }} · {{ .ReadingTime }} min read</p>
-    
-    {{ if .TableOfContents }}
-      <div class="sticky top-4 float-right ml-6 mb-6 bg-slate-800/50 rounded-lg p-4 w-64 max-h-[70vh] overflow-y-auto hidden lg:block">
-        <h3 class="font-semibold mb-2 text-emerald-400">On this page</h3>
-        {{ .TableOfContents }}
-      </div>
-    {{ end }}
-    
-    <div class="prose prose-invert max-w-none">
-      {{ .Content }}
-    </div>
-    
-    <footer class="mt-12 pt-6 border-t border-slate-800">
-      <div class="flex flex-wrap gap-2 mb-4">
-        {{ range .Params.tags }}
-          <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">{{ . }}</span>
+  <article class="post">
+    <header class="post-header">
+      <h1>{{ .Title }}</h1>
+      <div class="post-meta">
+        <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
+        {{ if .Params.author }}
+          <span>by {{ .Params.author }}</span>
+        {{ end }}
+        {{ if .ReadingTime }}
+          <span>· {{ .ReadingTime }} min read</span>
+        {{ end }}
+        {{ if .Lastmod }}
+          <span>· Updated: {{ .Lastmod | time.Format ":date_long" }}</span>
         {{ end }}
       </div>
-      
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <img src="/profile.jpg" alt="Amine" class="w-10 h-10 rounded-full">
-          <div></div>
-            <p class="font-medium">Amine</p>
-            <p class="text-sm text-slate-400">Independent Software Engineer & SRE Consultant</p>
+    </header>
+    
+    {{ .Content }}
+    
+    <footer class="post-footer">
+      <!-- Author info -->
+      {{ if .Params.author }}
+        <div class="author-info">
+          {{ if .Params.author_image }}
+            <img src="{{ .Params.author_image }}" alt="{{ .Params.author }}" class="author-image">
+          {{ end }}
+          <div class="author-details">
+            <h3>About {{ .Params.author }}</h3>
+            <p>Author bio would go here.</p>
           </div>
         </div>
+      {{ end }}
+      
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+      
+      <!-- Share buttons -->
+      <div class="share-buttons">
+        <span>Share:</span>
+        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink | urlquery }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener">LinkedIn</a>
       </div>
+      
+      <!-- Table of Contents -->
+      {{ if .Params.toc }}
+        <div class="table-of-contents">
+          <h2>Table of Contents</h2>
+          {{ .TableOfContents }}
+        </div>
+      {{ end }}
+      
+      <!-- Previous/Next post navigation -->
+      <nav class="post-navigation">
+        {{ with .Prev }}
+          <a href="{{ .RelPermalink }}">← Previous</a>
+        {{ end }}
+        {{ with .Next }}
+          <a href="{{ .RelPermalink }}">Next →</a>
+        {{ end }}
+      </nav>
     </footer>
   </article>
-</div>
 {{ end }}
