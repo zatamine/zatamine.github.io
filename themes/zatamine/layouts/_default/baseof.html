@@ -1,43 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head></head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
-  {{ if .Site.Params.description }}
-    <meta name="description" content="{{ .Site.Params.description | markdownify }}">
-  {{ end }}
-  
-  <!-- RSS Feed -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="""/index.xml">
-  
-  <title>{{ block "title" . }}{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="""/favicon.ico" type="image/x-icon">
-  
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="""/css/main.css">
+<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
 </head>
-<body></body>
-  {{ block "header" . }}{{ partial "nav.html" . }}{{ end }}
-  
-  <main class="container">
+<body>
+  <header>
+    {{ partial "header.html" . }}
+  </header>
+  <main>
     {{ block "main" . }}{{ end }}
   </main>
-  
-  {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
-
-  <!-- Analytics -->
-  {{ template "_internal/google_analytics.html" . }}
-  {{ with .Site.GoogleAnalyticsID }}
-    {{ $js := resources.Get "js/analytics.js" | js.Build (dict "GoogleAnalyticsID" .) }}
-    <script src="{{ $js.Permalink }}"></script>
-  {{ end }}
+  <footer>
+    {{ partial "footer.html" . }}
+  </footer>
 </body>
 </html>

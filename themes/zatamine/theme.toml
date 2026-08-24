@@ -1,14 +1,24 @@
-name = "Zatamine"
-description = "A clean, modern Hugo theme built specifically for Amine - Independent Software Engineer & SRE Consultant"
-license = "MIT"
-homepage = "https://github.com/zataine/zatamine-hugo-theme"
-demohomesite = "https://zataine.com"
-min_version = "0.110.20"
+name = 'zatamine'
+license = 'MIT'
+licenselink = 'https://github.com/zatamine/zatamine-theme/LICENSE'
+description = 'A clean, minimal Hugo theme for personal blogs and portfolios.'
 
+# The home page of the theme, where the source can be found
+homepage = 'https://github.com/zatamine/zatamine-theme'
+
+# If you have a running demo of the theme
+demosite = 'https://blog.zatamine.com'
+
+# Taxonomy terms
+tags = ['blog', 'portfolio', 'minimal']
+features = ['responsive', 'fast', 'customizable', 'dark-mode']
+
+
+
+# If the theme has a single author
 [author]
-name = "Amine"
-homepage = "https://zataine.com"
+  name = 'Zatamine'
+  homepage = 'https://zatamine.com'
 
-[features]
-themes = ["dark", "light"]
-features = ["blog", "portfolio", "responsive design", "syntax highlighting", "SEO optimized", "performance focused"]
+# If porting an existing theme
+

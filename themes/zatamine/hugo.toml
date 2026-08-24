@@ -1,107 +1,26 @@
-baseURL = "https://zatamine.com"
-languageCode = "en-us"
-title = "Zatamine | Amine - Independent Software Engineer & SRE"
-theme = "zatamine"
-disqusShortname = ""
-paginate = 6
+# Default configuration for the theme (to be used as example in documentation)
+# This file should not be modified by users, but can be used to understand defaults.
 
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ""
-    lineNos = true
-    lineNumbersInTable = true
-    noClasses = false
-    style = "monokai"
-    tabWidth = 4
+baseURL = 'https://example.com'
+languageCode = 'en-US'
+title = 'Zatamine Theme Demo'
 
-[params]
-  description = "Amine - Independent Software Engineer & Site Reliability Engineer Consultant"
-  keywords = "go, golang, aws, kubernetes, sre, devops, terraform, consulting"
-  author = "Amine"
+[[menus.main]]
+name = 'Home'
+pageRef = '/'
+weight = 10
 
-  # Homepage sections
-  enableHero = true
-  enableServices = true
-  enableRecentPosts = true
-  enableContact = true
+[[menus.main]]
+name = 'Posts'
+pageRef = '/posts'
+weight = 20
 
-  # Availability badge
-  availability = "🟢 Available for selective engagements"
-  uptime = "99.999 %"
-  ping = "~8ms"
+[[menus.main]]
+name = 'Tags'
+pageRef = '/tags'
+weight = 30
 
-  # Social links
-  email = "contact@example.com"
-  github = "https://github.com/zatamine"
-  twitter = "https://twitter.com/zatamine"
-  linkedin = "https://linkedin.com/in/zatamine"
-
-  # Services
-  [[params.services]]
-    title = "Backend Engineering"
-    icon = "🚀"
-    description = "High-concurrency APIs, distributed microservices in Go, performance optimization, and scalable architecture design."
-    
-  [[params.services]]
-    title = "Site Reliability Engineering"
-    icon = "⚙️"
-    description = "Prometheus monitoring, Grafana dashboards, SLO/SLA engineering, chaos engineering, and incident response automation."
-    
-  [[params.services]]
-    title = "Cloud & Infrastructure Migrations"
-    icon = "☁️"
-    description = "Zero-downtime database and Kubernetes migrations across AWS, on-premises, and multi-cloud environments."
-    
-  [[params.services]]
-    title = "DevOps & Automation"
-    icon = "🤖"
-    description = "Infrastructure as Code with Terraform, CI/CD pipelines, Kubernetes operations, and GitOps implementations."
-
-  # Stack badges
-  [[params.stack]]
-    name = "Go"
-    color = "#00ADD8"
-    
-  [[params.stack]]
-    name = "AWS"
-    color = "#FF9900"
-    
-  [[params.stack]]
-    name = "Terraform"
-    color = "#844FBA"
-    
-  [[params.stack]]
-    name = "Kubernetes"
-    color = "#326CE5"
-
-[taxonomies]
-  tag = "tags"
-categories = "categories"
-
-[menu]
-  [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "#"
-    weight = 1
-    
-  [[menu.main]]  
-    identifier = "services"
-    name = "What I Do"
-    url = "#"
-    weight = 2
-    
-  [[menu.main]]
-    identifier = "blog"
-    name = "Blog"
-    url = "/posts/"
-    weight = 3
-    
-  [[menu.main]]
-    identifier = "contact"
-    name = "Contact"
-    url = "#"
-    weight = 4
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.116.0"
