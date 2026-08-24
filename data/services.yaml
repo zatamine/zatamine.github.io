@@ -1,0 +1,57 @@
+# Core Services Matrix → rendered by themes/zatamine/layouts/partials/services.html
+services:
+  - id: backend
+    num: "01"
+    title: Backend Engineering (Go / Golang)
+    summary: >-
+      High-concurrency APIs and distributed microservices that stay fast under
+      real production load.
+    points:
+      - High-concurrency REST/gRPC API design with clean failure semantics
+      - Distributed microservices with sane boundaries and contract discipline
+      - Profiling-driven performance tuning — latency, throughput, memory
+    tech: [Go, gRPC, PostgreSQL]
+    icon: |
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 8-4 4 4 4"/><path d="m15 8 4 4-4 4"/><line x1="13" y1="6" x2="11" y2="18"/></svg>
+
+  - id: sre
+    num: "02"
+    title: Site Reliability Engineering (SRE)
+    summary: >-
+      Observability, SLO/SLA design and resilience practices that make
+      incidents the exception instead of the norm.
+    points:
+      - SLO / SLI frameworks tied to real user impact, not vanity metrics
+      - Full observability stack — Prometheus, Grafana, OpenTelemetry
+      - Chaos testing and game days that prove resilience before it's tested for you
+    tech: [Prometheus, Grafana, OpenTelemetry]
+    icon: |
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 12 7 12 9.5 5.5 14.5 18.5 17 12 21 12"/></svg>
+
+  - id: migrations
+    num: "03"
+    title: Cloud & On-Premises Migrations
+    summary: >-
+      Zero-downtime live traffic migration and multi-cloud / hybrid cloud
+      architectures — no maintenance windows, no data loss.
+    points:
+      - Zero-downtime cutovers with progressive live traffic shifting
+      - Multi-cloud and hybrid topologies that avoid single-vendor lock-in
+      - Data movement strategies — replication, dual-write, idempotent backfill
+    tech: [AWS, Hybrid Cloud, Cutover]
+    icon: |
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h12l-3-3m3 3-3 3"/><path d="M20 16H8l3-3m-3 3 3 3"/></svg>
+
+  - id: devops
+    num: "04"
+    title: DevOps & Infrastructure as Code
+    summary: >-
+      Terraform, Kubernetes and GitOps pipelines where the repo is the source of
+      truth for everything that runs in production.
+    points:
+      - Declarative infrastructure — Terraform modules, remote state, policy checks
+      - Production-grade Kubernetes — node pools, upgrades, capacity planning
+      - Automated CI/CD with GitOps delivery (Argo CD) and progressive rollouts
+    tech: [Terraform, Kubernetes, Argo CD]
+    icon: |
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg>

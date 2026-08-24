@@ -1,16 +1,13 @@
 {{ define "main" }}
-<article class="post">
-  <header class="post-header">
-    <h1></h1>Page Not Found</h1>
-    <div class="post-meta">
-      <p></p>Sorry, the page you're looking for doesn't exist.</p>
+  <div class="container notfound">
+    <span class="kicker">// error</span>
+    <h1><code class="nf-code">404</code></h1>
+    <p class="notfound-text">
+      The page you're looking for doesn't exist — it may have been moved or never deployed.
+    </p>
+    <div class="notfound-links">
+      <a class="btn btn-primary" href="{{ "/" | relURL }}">Back Home</a>
+      <a class="archive-link" href="{{ "/posts/" | relURL }}">Read the Blog <span aria-hidden="true">→</span></a>
     </div>
-  </header>
-  
-  <div class="post-content">
-    <p>The page you requested could not be found. It may have been moved or deleted.</p>
-    
-    <p>You can return to the <a href="{{ .Site.BaseURL }}">home page</a>.</p>
   </div>
-</article>
 {{ end }}

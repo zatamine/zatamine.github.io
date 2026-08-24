@@ -1,0 +1,10 @@
+# Homepage hero widget + nav availability badge source.
+badge: Available for select contracts
+status: All Systems Operational
+uptime: 99.999%
+ping: ~8 ms
+stack:
+  - Go
+  - AWS
+  - Terraform
+  - Kubernetes

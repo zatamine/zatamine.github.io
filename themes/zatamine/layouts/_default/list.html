@@ -1,41 +1,40 @@
 {{ define "main" }}
-  <header class="list-header">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
-  </header>
-  
-  <div class="posts-list">
-    {{ range .Pages }}
-      <article class="post-preview">
-        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-        <p class="post-meta">
-          <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
-          {{ if .Params.author }}
-            <span>by {{ .Params.author }}</span>
-          {{ end }}
-          {{ if .ReadingTime }}
-            <span>· {{ .ReadingTime }} min read</span>
-          {{ end }}
-        </p>
-        {{ if .Params.featured_image }}
-          <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="featured-image">
-        {{ end }}
-        <p>{{ .Summary }}</p>
-        <a href="{{ .RelPermalink }}" class="read-more">Read more →</a>
-      </article>
+  <div class="container list-page">
+    {{ if .IsTerm }}
+      <header class="section-head">
+        <span class="kicker">// tag</span>
+        <h1>{{ .LinkTitle }}</h1>
+        <p class="muted">{{ len .Pages }} article{{ if ne (len .Pages) 1 }}s{{ end }} tagged <code>{{ .Data.Term | lower }}</code></p>
+      </header>
+    {{ else if eq .Kind "taxonomy" }}
+      <header class="section-head">
+        <span class="kicker">// taxonomy</span>
+        <h1></h1>Tags</h1>
+        <p class="muted">Every label used in the blog, most recent first.</p>
+      </header>
+      {{ partial "tag-chips.html" (dict "page" .) }}
+    {{ else }}
+      <header class="section-head">
+        <span class="kicker">// archive</span>
+        <h1>{{ .Title | default "Posts" }}</h1>
+        {{ with .Description }}<p class="muted">{{ . | plainify }}</p>{{ end }}
+      </header>
+      {{ partial "tag-chips.html" (dict "page" . "showAll" true) }}
+    {{ end }}
+
+    {{ if ne .Kind "taxonomy" }}
+      {{ $pag := (.RegularPages.ByDate.Reverse | paginate site.Config.Paginate) }}
+      <ul class="post-list">
+        {{ range $pag.Pages }}{{ partial "post-item.html" . }}{{ end }}
+      </ul>
+
+      {{ if gt $pag.TotalPages 1 }}
+        <nav class="pager" aria-label="Pagination">
+          {{ with $pag.Prev }}<a class="pager-link" href="{{ .URL }}">← Newer</a>{{ else }}<span class="pager-link is-disabled">← Newer</span>{{ end }}
+          <span class="pager-info">Page {{ $pag.PageNumber }} of {{ $pag.TotalPages }}</span>
+          {{ with $pag.Next }}<a class="pager-link" href="{{ .URL }}">Older →</a>{{ else }}<span class="pager-link is-disabled">Older →</span>{{ end }}
+        </nav>
+      {{ end }}
     {{ end }}
   </div>
-
-  <!-- Pagination -->
-  {{ if or .Paginator.HasPrev .Paginator.HasNext }}
-    <nav class="pagination">
-      {{ if .Paginator.HasPrev }}
-        <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
-      {{ end }}
-      <span>{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
-      {{ if .Paginator.HasNext }}
-        <a href="{{ .Paginator.Next.URL }}">Next →</a>
-      {{ end }}
-    </nav>
-  {{ end }}
 {{ end }}

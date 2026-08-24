@@ -1,32 +1,7 @@
-locale: 'en-us'
-title: zatamine's blog
-theme: 'zatamine'
-paginate: 5
-
-enableRobotsTXT: true
+# Development-environment overrides only — everything else is inherited from _default.
 buildDrafts: true
 buildFuture: true
 buildExpired: true
-googleAnalytics: ""
 
 minify:
-  disableXML: true
   minifyOutput: false
-
-params:
-  subtitle: zatamine's blog
-  title: zatamine's blog
-  description: "Software Engineering life"
-  keywords: [Software, Engineering, development]
-  author: Amine
-
-menus:
-  main:
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 100
-    - identifier: posts
-      name: Posts 
-      url: /posts/
-      weight: 200

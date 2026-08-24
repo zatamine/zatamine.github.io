@@ -1,64 +1,54 @@
 {{ define "main" }}
-  <article class="post">
-    <header class="post-header">
-      <h1>{{ .Title }}</h1>
-      <div class="post-meta">
-        <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
-        {{ if .Params.author }}
-          <span>by {{ .Params.author }}</span>
-        {{ end }}
-        {{ if .ReadingTime }}
-          <span>· {{ .ReadingTime }} min read</span>
-        {{ end }}
-        {{ if .Lastmod }}
-          <span>· Updated: {{ .Lastmod | time.Format ":date_long" }}</span>
-        {{ end }}
-      </div>
-    </header>
-    
-    {{ .Content }}
-    
-    <footer class="post-footer">
-      <!-- Author info -->
-      {{ if .Params.author }}
-        <div class="author-info">
-          {{ if .Params.author_image }}
-            <img src="{{ .Params.author_image }}" alt="{{ .Params.author }}" class="author-image">
-          {{ end }}
-          <div class="author-details">
-            <h3>About {{ .Params.author }}</h3>
-            <p>Author bio would go here.</p>
-          </div>
-        </div>
-      {{ end }}
-      
-      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-      
-      <!-- Share buttons -->
-      <div class="share-buttons">
-        <span>Share:</span>
-        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Twitter</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink | urlquery }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-      
-      <!-- Table of Contents -->
-      {{ if .Params.toc }}
-        <div class="table-of-contents">
-          <h2>Table of Contents</h2>
+  {{ $isPost := eq .Type "posts" }}
+  {{ $hasToc := false }}
+  {{ if and $isPost (ne (.TableOfContents | plainify) "") }}{{ $hasToc = true }}{{ end }}
+
+  <div class="container article-grid{{ if not $hasToc }} no-toc{{ end }}">
+
+    {{ if $hasToc }}
+      <aside class="article-toc" aria-label="Table of contents">
+        <div class="toc-sticky">
+          <h2 class="toc-title">Contents</h2>
           {{ .TableOfContents }}
         </div>
+      </aside>
+    {{ end }}
+
+    <article class="post">
+      <header class="post-head">
+        {{ if $isPost }}<span class="kicker">// {{ .Section }}</span>{{ end }}
+        <h1>{{ .Title | default site.Params.author }}</h1>
+
+        {{ if $isPost }}
+          <div class="post-meta">
+            <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date | time.Format "January 2, 2006" }}</time>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </div>
+        {{ end }}
+
+        {{ with .GetTerms "tags" }}
+          <nav class="chips post-tags" aria-label="Tags">
+            {{ range . }}<a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+          </nav>
+        {{ end }}
+      </header>
+
+      <div class="prose">{{ .Content }}</div>
+
+      {{ if $isPost }}
+        <footer class="post-footer">
+          <span class="author-avatar" aria-hidden="true">A</span>
+          <div class="author-bio">
+            <p class="author-name">{{ site.Params.author }} <span class="muted">· {{ site.Params.role }}</span></p>
+            <p class="muted author-text">
+              I help teams ship fast systems that stay up. If something in this
+              article matches a problem you're working on, <a href="{{ printf "mailto:%s" (site.Params.email) }}">let's talk</a>.
+            </p>
+          </div>
+        </footer>
       {{ end }}
-      
-      <!-- Previous/Next post navigation -->
-      <nav class="post-navigation">
-        {{ with .Prev }}
-          <a href="{{ .RelPermalink }}">← Previous</a>
-        {{ end }}
-        {{ with .Next }}
-          <a href="{{ .RelPermalink }}">Next →</a>
-        {{ end }}
-      </nav>
-    </footer>
-  </article>
+    </article>
+
+  </div>
 {{ end }}
