@@ -7,16 +7,13 @@ description = 'A clean, minimal Hugo theme for personal blogs and portfolios.'
 homepage = 'https://github.com/zatamine/zatamine-theme'
 
 # If you have a running demo of the theme
-demosite = 'https://zatamine.com'
+demosite = 'https://blog.zatamine.com'
 
 # Taxonomy terms
 tags = ['blog', 'portfolio', 'minimal']
 features = ['responsive', 'fast', 'customizable', 'dark-mode']
 
-# If the theme has multiple authors
-authors = [
-  {name = 'Zatamine', homepage = 'https://zatamine.com'}
-]
+
 
 # If the theme has a single author
 [author]
@@ -24,7 +21,4 @@ authors = [
   homepage = 'https://zatamine.com'
 
 # If porting an existing theme
-[original]
-  author = 'Zatamine'
-  homepage = 'https://zatamine.com'
-  repo = 'https://github.com/zatamine/zatamine-theme'
+

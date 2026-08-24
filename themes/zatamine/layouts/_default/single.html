@@ -5,7 +5,7 @@
       <div class="post-meta">
         <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
         {{ if .Params.author }}
-          <span></span>by {{ .Params.author }}</span>
+          <span>by {{ .Params.author }}</span>
         {{ end }}
         {{ if .ReadingTime }}
           <span>· {{ .ReadingTime }} min read</span>
@@ -37,9 +37,9 @@
       <!-- Share buttons -->
       <div class="share-buttons">
         <span>Share:</span>
-        <a href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink }}&title={{ .Title }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink | urlquery }}" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink | urlquery }}&title={{ .Title | urlquery }}" target="_blank" rel="noopener">LinkedIn</a>
       </div>
       
       <!-- Table of Contents -->

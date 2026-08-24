@@ -1,2 +1,19 @@
+# Build artifacts
 .hugo_build.lock
 public/
+
+# Generated cache
+themes/zatamine/resources/_gen/
+
+# Temporary files
+tmp/
+
+# Node dependencies
+node_modules/
+
+# Test artifacts
+themes/zatamine/test-results/
+themes/zatamine/test-report/
+
+# IDE and editor files
+.DS_Store

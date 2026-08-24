@@ -1,14 +1,14 @@
 languageCode: 'en-US'
 title: zatamine's blog
 theme: 'zatamine'
-pagenate: '5'
+paginate: 5
 
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: "UA-12345678-1"
+googleAnalytics: ""
 
 minify:
   disableXML: true
@@ -17,10 +17,10 @@ minify:
 
 params:
   subtitle: zatamine's blog
-  title: Amine's blog
+  title: zatamine's blog
   description: "Software Engineering life"
   keywords: [Software, Engineering, development]
-  author: Me
+  author: Amine
 
 menus:
   main:

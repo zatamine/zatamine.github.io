@@ -3,9 +3,14 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 <meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{ if strings.Contains .Site.BaseURL "index.xml" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}">
+{{ else }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}index.xml">
+{{ end }}
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
 <meta property="og:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">

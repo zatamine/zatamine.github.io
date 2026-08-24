@@ -63,12 +63,14 @@ function initializeMobileMenu() {
   }
 
   // Close mobile menu when clicking outside
-  document.addEventListener('click', (event) => {
-    if (!menuToggle.contains(event.target) && !navList.contains(event.target)) {
-      navList.classList.remove('show');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
+  if (menuToggle && navList) {
+    document.addEventListener('click', (event) => {
+      if (!menuToggle.contains(event.target) && !navList.contains(event.target)) {
+        navList.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 }
 
 // Initialize mobile menu when DOM is ready
