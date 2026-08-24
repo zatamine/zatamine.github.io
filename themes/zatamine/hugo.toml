@@ -1,30 +1,26 @@
-baseURL = '/'
-languageCode = 'en-us'
-title = 'Amine — Independent SRE & Software Engineer'
-theme = 'zatamine'
+# Default configuration for the theme (to be used as example in documentation)
+# This file should not be modified by users, but can be used to understand defaults.
 
-[params]
-  description = "High-throughput Go Backend Development, site reliability engineering (SRE), DevOps, and automation."
-  email = "hello@zatamine.com"
-  github = "https://github.com/zatamine"
-  twitter = "https://x.com/zatamine"
-  linkedin = "https://linkedin.com/in/zatamine"
+baseURL = 'https://example.com'
+languageCode = 'en-US'
+title = 'Zatamine Theme Demo'
 
-[taxonomies]
-  tag = "tags"
-  category = "categories"
+[[menus.main]]
+name = 'Home'
+pageRef = '/'
+weight = 10
 
-[markup]
-  [markup.highlight]
-    codeFences = true
-    noClasses = false
-    style = "monokai"
-    lineNos = true
-    noTrimRights = false
+[[menus.main]]
+name = 'Posts'
+pageRef = '/posts'
+weight = 20
 
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
-  section = ["HTML", "RSS"]
+[[menus.main]]
+name = 'Tags'
+pageRef = '/tags'
+weight = 30
 
-[params.assets]
-  css = ["main.css"]
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.116.0"

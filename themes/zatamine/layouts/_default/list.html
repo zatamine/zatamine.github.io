@@ -1,28 +1,41 @@
 {{ define "main" }}
-<div class="container mx-auto px-4 pt-8 pb-16">
-    <h1 class="text-3xl font-bold mb-8">Blog Posts</h1>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {{ range .Paginator.Pages }}
-        <article class="bg-slate-800 rounded-lg p-6 border border-slate-700 hover:border-cyan-500 transition-colors duration-300">
-            <div class="flex justify-between items-start mb-4">
-                <time class="text-sm text-slate-400">{{ .Date.Format "January 2, 2006" }}</time>
-                <span class="text-xs bg-slate-700 px-2 py-1 rounded-full">{{ .ReadingTime }} min read</span>
-            </div>
-            
-            <h2 class="text-xl font-semibold mb-3"><a href="{{ .Permalink }}" class="hover:text-cyan-400 transition-colors">{{ .Title }}</a></h2>
-            
-            <p class="text-slate-300 mb-4">{{ .Summary }}</p>
-            
-            <div class="flex flex-wrap gap-2">
-                {{ range .Params.tags }}
-                <span class="text-xs bg-slate-750 text-slate-300 px-2 py-0.5 rounded">{{ . }}</span>
-                {{ end }}
-            </div>
-        </article>
+  <header class="list-header">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </header>
+  
+  <div class="posts-list">
+    {{ range .Pages }}
+      <article class="post-preview">
+        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+        <p class="post-meta">
+          <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
+          {{ if .Params.author }}
+            <span>by {{ .Params.author }}</span>
+          {{ end }}
+          {{ if .ReadingTime }}
+            <span>· {{ .ReadingTime }} min read</span>
+          {{ end }}
+        </p>
+        {{ if .Params.featured_image }}
+          <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="featured-image">
         {{ end }}
-    </div>
-    
-    {{ template "_internal/pagination.html" . }}
-</div>
+        <p>{{ .Summary }}</p>
+        <a href="{{ .RelPermalink }}" class="read-more">Read more →</a>
+      </article>
+    {{ end }}
+  </div>
+
+  <!-- Pagination -->
+  {{ if or .Paginator.HasPrev .Paginator.HasNext }}
+    <nav class="pagination">
+      {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
+      {{ end }}
+      <span>{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
+      {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Next.URL }}">Next →</a>
+      {{ end }}
+    </nav>
+  {{ end }}
 {{ end }}
