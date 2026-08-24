@@ -1,54 +1,41 @@
 {{ define "main" }}
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6">{{ .Title }}</h1>
-    
-    {{ $paginator := .Paginate .RegularPages }}
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {{ range $paginator.Pages }}
-        <article class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
-            <h2 class="text-xl font-semibold mb-2">
-                <a href="{{ .RelPermalink }}" class="hover:text-primary transition-colors">
-                    {{ .Title }}
-                </a>
-            </h2>
-            <p class="text-gray-500 text-sm mb-3">{{ .Date.Format "January 2, 2006" }}</p>
-            <p class="text-gray-300 mb-4">{{ .Summary }}</p>
-            <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-500">{{ .ReadingTime }} min read</span>
-                <div class="flex flex-wrap gap-2">
-                    {{ range .Params.tags }}
-                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                        {{ . }}
-                    </span>
-                    {{ end }}
-                </div>
-            </div>
-        </article>
+  <header class="list-header">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </header>
+  
+  <div class="posts-list">
+    {{ range .Pages }}
+      <article class="post-preview">
+        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+        <p class="post-meta">
+          <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
+          {{ if .Params.author }}
+            <span>by {{ .Params.author }}</span>
+          {{ end }}
+          {{ if .ReadingTime }}
+            <span>· {{ .ReadingTime }} min read</span>
+          {{ end }}
+        </p>
+        {{ if .Params.featured_image }}
+          <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="featured-image">
         {{ end }}
-    </div>
-    
-    <!-- Pagination -->
-    {{ if or $paginator.HasPrev $paginator.HasNext }}
-    <div class="mt-8 flex justify-center">
-        <nav class="flex items-center space-x-2">
-            {{ if $paginator.HasPrev }}
-            <a href="{{ $paginator.Prev.URL }}" class="px-3 py-1 rounded bg-card border border-border hover:bg-primary hover:text-black transition-colors">
-                Previous
-            </a>
-            {{ end }}
-            
-            <span class="px-3 py-1">
-                Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}
-            </span>
-            
-            {{ if $paginator.HasNext }}
-            <a href="{{ $paginator.Next.URL }}" class="px-3 py-1 rounded bg-card border border:border hover:bg-primary hover:text-black transition-colors">
-                Next
-            </a>
-            {{ end }}
-        </nav>
-    </div>
+        <p>{{ .Summary }}</p>
+        <a href="{{ .RelPermalink }}" class="read-more">Read more →</a>
+      </article>
     {{ end }}
-</div>
+  </div>
+
+  <!-- Pagination -->
+  {{ if or .Paginator.HasPrev .Paginator.HasNext }}
+    <nav class="pagination">
+      {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
+      {{ end }}
+      <span>{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
+      {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Next.URL }}">Next →</a>
+      {{ end }}
+    </nav>
+  {{ end }}
 {{ end }}
