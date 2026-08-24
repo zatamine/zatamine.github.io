@@ -1,5 +1,5 @@
 locale: 'en-US'
-title: zatamine
+title: zatamine's blog
 theme: 'zatamine'
 paginate: 5
 
@@ -8,57 +8,27 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: ''
+googleAnalytics: ""
 
 minify:
   disableXML: true
   minifyOutput: true
 
-# Only the `tag` taxonomy (drops the default `category`) → /tags/, /tags/<term>/
-taxonomies:
-  tag: tags
-
-markup:
-  highlight:
-    # Inline token styles so code blocks need no extra CSS request.
-    # Swap for any other Chroma dark theme, e.g. "monokai" or "dracula".
-    style: base16-nord.dark
-    noClasses: true
-    lineNos: false
-  goldmark:
-    renderer:
-      ## hardwrap: false
 
 params:
+  subtitle: zatamine's blog
+  title: zatamine's blog
+  description: "Software Engineering life"
+  keywords: [Software, Engineering, development]
   author: Amine
-  role: Independent Software Engineer & SRE Consultant
-  description: >-
-    High-throughput Go backends, resilient Kubernetes platforms on AWS and
-    on-prem, and zero-downtime infrastructure migrations.
-  # TODO(replace): real contact address before first deploy.
-  email: hello@zatamine.com
 
-  socials:
-    github: https://github.com/zatamine
-    x: https://x.com/zatamine
-    linkedin: https://www.linkedin.com/in/zatamine
-
-# Homepage anchors use absolute paths so the nav works from any page.
 menus:
   main:
     - identifier: about
       name: About
       url: /about/
       weight: 100
-    - identifier: services
-      name: What I Do
-      url: /#services
-      weight: 200
-    - identifier: blog
-      name: Blog
+    - identifier: posts
+      name: Posts 
       url: /posts/
-      weight: 300
-    - identifier: contact
-      name: Contact
-      url: /#contact
-      weight: 400
+      weight: 200

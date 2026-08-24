@@ -1,15 +1,24 @@
 name = 'zatamine'
 license = 'MIT'
 licenselink = 'https://github.com/zatamine/zatamine-theme/LICENSE'
-description = 'Clean, dark-first personal portfolio & engineering blog theme for software engineers and SREs.'
+description = 'A clean, minimal Hugo theme for personal blogs and portfolios.'
 
+# The home page of the theme, where the source can be found
 homepage = 'https://github.com/zatamine/zatamine-theme'
+
+# If you have a running demo of the theme
 demosite = 'https://blog.zatamine.com'
 
-tags = ['portfolio', 'blog', 'minimal', 'dark']
-features = ['responsive', 'fast', 'typography', 'table-of-contents', 'chroma-highlighting', 'status-widget']
-min_version = '0.123.0'
+# Taxonomy terms
+tags = ['blog', 'portfolio', 'minimal']
+features = ['responsive', 'fast', 'customizable', 'dark-mode']
 
+
+
+# If the theme has a single author
 [author]
   name = 'Zatamine'
   homepage = 'https://zatamine.com'
+
+# If porting an existing theme
+

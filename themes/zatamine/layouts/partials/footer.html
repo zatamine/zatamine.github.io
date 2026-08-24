@@ -1,11 +1,11 @@
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="copyright">© {{ now.Year }} {{ site.Params.author }}</p>
-
-    {{ with site.Data.status.status }}
-      <span class="footer-status"><span class="dot" aria-hidden="true"></span>{{ . }}</span>
-    {{ end }}
-
-    <a class="footer-rss" href="{{ "/index.xml" | relURL }}" title="RSS feed">RSS</a>
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; {{ now.Year }} {{ site.Title }}. All rights reserved.</p>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/about">About</a>
+      <a href="/posts">Posts</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
   </div>
+  <p class="powered-by">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a></p>
 </footer>

@@ -1,26 +1,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-{{ $desc := cond .IsHome (site.Params.description) (or .Description site.Params.description) }}
-<title>{{ if and (not .IsHome) .Title }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
-<meta name="description" content="{{ $desc | htmlEscape }}">
-
-{{ if eq .OutputFormat "html" }}
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+<meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{ if strings.Contains .Site.BaseURL "index.xml" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}">
+{{ else }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}index.xml">
 {{ end }}
 
-<!-- RSS autodiscovery (home + list pages expose an rss alternate format) -->
-{{ range .AlternativeFormats }}
-<link rel="{{ with .Rel }}{{ . }}{{ else }}alternate{{ end }}" type="{{ .MediaType.Type | htmlEscape }}" title="{{ site.Title }}" href="{{ .Permalink | safeURL }}">
-{{ end }}
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
+<meta property="og:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
+<meta property="og:image" content="{{ site.Params.image | default "https://example.com/image.jpg" }}">
 
-<meta name="theme-color" content="#0d1117">
-<link rel="icon" href="{{ "favicon.ico" | relURL }}">
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="{{ .Permalink }}">
+<meta property="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
+<meta property="twitter:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
+<meta property="twitter:image" content="{{ site.Params.image | default "https://example.com/image.jpg" }}">
 
-<!-- Fonts: Inter (UI/body) + JetBrains Mono (code, tags, status pills) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-{{ $style := resources.Get "css/main.css" | css.Minify | fingerprint }}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
