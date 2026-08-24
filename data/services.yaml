@@ -1,0 +1,15 @@
+- name: "Backend Engineering (Go / Golang)"
+  description: "High-concurrency APIs, distributed microservices, performance tuning"
+  icon: "⚙️"
+
+- name: "Site Reliability Engineering (SRE)"
+  description: "Prometheus, Grafana, OpenTelemetry, SLO/SLA design, chaos testing"
+  icon: "📈"
+
+- name: "Cloud & On-Premises Migrations"
+  description: "Zero-downtime live traffic migration, multi-cloud & hybrid cloud architectures"
+  icon: "🔄"
+
+- name: "DevOps & Infrastructure as Code"
+  description: "Terraform, Kubernetes, automated CI/CD pipelines, GitOps"
+  icon: "🛠️"

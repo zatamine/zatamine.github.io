@@ -1,0 +1,15 @@
+baseURL = "https://zatamine.com"
+languageCode = "en-us"
+title = "Amine - Independent Software Engineer & SRE Consultant"
+theme = "zatamine"
+
+[params]
+  author = "Amine"
+  description = "Independent Software Engineer & SRE Consultant specializing in high-throughput Go backends, site reliability engineering, and zero-downtime infrastructure migrations."
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.highlight]
+    style = "dracula"

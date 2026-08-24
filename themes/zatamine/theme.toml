@@ -1,24 +1,19 @@
-name = 'zatamine'
-license = 'MIT'
-licenselink = 'https://github.com/zatamine/zatamine-theme/LICENSE'
-description = 'A clean, minimal Hugo theme for personal blogs and portfolios.'
+name = "zatamine"
+license = "MIT"
+licenselink = "https://github.com/yourusername/zatamine/blob/main/LICENSE"
+description = "A clean, modern Hugo theme for independent software engineers and SRE consultants"
+homepage = "https://github.com/yourusername/zatamine"
+tags = ["personal", "portfolio", "blog", "technical", "dark", "sre", "golang"]
+features = ["dark mode", "technical blogging", "responsive", "fast", "minimal"]
 
-# The home page of the theme, where the source can be found
-homepage = 'https://github.com/zatamine/zatamine-theme'
-
-# If you have a running demo of the theme
-demosite = 'https://blog.zatamine.com'
-
-# Taxonomy terms
-tags = ['blog', 'portfolio', 'minimal']
-features = ['responsive', 'fast', 'customizable', 'dark-mode']
-
-
-
-# If the theme has a single author
 [author]
-  name = 'Zatamine'
-  homepage = 'https://zatamine.com'
+  name = "Amine"
+  homepage = "https://zatamine.com"
 
-# If porting an existing theme
-
+[params]
+  [params.theme]
+    primary_color = "#10b981"
+    secondary_color = "#06b6d4"
+    background_color = "#0d1117"
+    card_color = "#161b22"
+    border_color = "rgba(255, 255,  255, 0.08)"
