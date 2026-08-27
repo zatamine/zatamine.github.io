@@ -1,111 +1,160 @@
 # Zatamine Hugo Theme
 
-A clean, minimal Hugo theme designed for personal blogs and portfolios. It focuses on readability, performance, and a distraction-free writing experience.
+A dark-only, high-performance Hugo theme for personal portfolios and technical engineering blogs. Built for speed, readability, and a distraction-free writing experience.
+
+## Design System
+
+- **Canvas:** Deep matte dark `#0d1117`
+- **Cards:** Slate `#161b22` with hairline borders
+- **Accents:** Emerald `#10b981` / Cyan `#06b6d4`
+- **Fonts:** Inter (body) + JetBrains Mono (code)
+- **Dark-only** — no light-mode toggle
 
 ## Features
 
-- Responsive design
-- Dark mode support (with system preference detection)
-- Fast loading times
-- Clean typography
-- SEO friendly
-- Easy customization
-- Minimal dependencies
-- Table of contents support
-- Reading time estimation
-- Share buttons
-- Author information
-- Previous/next post navigation
+- Responsive design (mobile nav collapse at ~768px)
+- Hero section with terminal-style status widget (CSS-only pulse, no JS)
+- Services matrix (2×2 grid from `data/services.yaml`)
+- Recent posts grid (3 latest)
+- Blog archive with client-side tag filtering
+- Server-side taxonomy term pages for deep-linking/SEO
+- Single post layout with sticky TOC, Chroma syntax highlighting (`base16-snazzy`), author bio, prev/next navigation
+- Contact section with social links
+- RSS feed link in footer
+- SEO: meta, Open Graph, Twitter cards, canonical URLs
+- Minified + fingerprinted assets in production
+- Reduced-motion support
+
+## Requirements
+
+- Hugo **v0.116.0+** (extended)
+- Tested with Hugo v0.165.0
 
 ## Installation
 
-1. Add the theme to your `config.toml`:
-   ```toml
-   theme = 'zatamine'
-   ```
+Clone or copy the theme into your site's `themes/` directory:
 
-2. Or clone the theme into your `themes/zatamine` directory:
-   ```bash
-   git clone https://github.com/zatamine/zatamine-theme.git themes/zatamine
-   ```
+```bash
+git clone <repo-url> themes/zatamine
+```
+
+Set in your site config:
+
+```yaml
+theme: 'zatamine'
+```
 
 ## Configuration
 
-See the [example site](https://github.com/zatamine/zatamine-theme/tree/main/exampleSite) for a complete configuration example.
+See `hugo.toml` in this directory for a complete sample config. Key settings:
 
-### Menu Configuration
+### Site Params
 
-You can customize the main menu in your `config.toml`:
-
-```toml
-[[menus.main]]
-name = 'Home'
-pageRef = '/'
-weight = 10
-
-[[menus.main]]
-name = 'Posts'
-pageRef = '/posts'
-weight = 20
-
-[[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
-weight = 30
+```yaml
+params:
+  description: 'Your tagline'
+  author: 'Your Name'
+  role: 'Your Role'
+  email: 'you@example.com'
+  availability: 'Available for new projects'
+  social:
+    - name: 'GitHub'
+      url: 'https://github.com/you'
+    - name: 'X'
+      url: 'https://x.com/you'
+    - name: 'LinkedIn'
+      url: 'https://linkedin.com/in/you'
 ```
 
-### Dark Mode
+### Menus
 
-Dark mode is enabled by default and can be toggled in the UI. It respects system preference and persists across sessions.
+```yaml
+menus:
+  main:
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 100
+    - identifier: services
+      name: What I Do
+      url: /#services
+      weight: 200
+    - identifier: posts
+      name: Blog
+      url: /posts/
+      weight: 300
+    - identifier: contact
+      name: Contact
+      url: /#contact
+      weight: 400
+```
 
-### Front Matter Options
+### Data Files
 
-In your content files, you can use these front matter options:
+The theme reads two YAML data files:
 
-- `author`: Author name (for author info display)
-- `author_image`: Path to author image
-- `featured_image`: Path to featured image
-- `description`: Page/post description
-- `toc`: Set to true to enable table of contents
-- `reading_time`: Set to false to disable reading time estimation
+- **`data/status.yaml`** — Hero status widget (title, updated, line, metrics, stack)
+- **`data/services.yaml`** — Services grid (icon, title, description, points)
+
+### Taxonomies
+
+```yaml
+taxonomies:
+  - tags
+```
+
+### Pagination
+
+```yaml
+pagination:
+  pagerSize: 6
+```
+
+### Chroma Highlighting
+
+```yaml
+markup:
+  highlight:
+    noClasses: false
+    style: 'base16-snazzy'
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+```
+
+## Front Matter Options
+
+For posts:
+
+- `title`: Post title
+- `date`: Publication date
+- `draft`: Whether the post is a draft
+- `tags`: List of tags
+- `description`: Meta description (falls back to summary)
 
 ## Customization
 
-The theme uses CSS variables for easy customization. You can override colors, fonts, and spacing by adding custom CSS to your site.
+The theme uses CSS custom properties (variables) defined in `assets/css/main.css`. Override them by adding custom CSS to your site:
 
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+```css
+:root {
+  --color-accent: #f59e0b; /* Change accent color */
+}
+```
 
 ## Taskfile Commands
 
-This theme includes a Taskfile with convenient commands:
-
 ```bash
-# Serve the site for development
-(task serve)
-
-# Build for production
-(task build)
-
-# Development mode with live reload
-(task dev)
-
-# Clean public directory
-(task clean)
-
-# Run validation checks
-(task test)
-
-# Run UI tests
-(task test-ui)
-
-# Deploy the site
-(task deploy)
+task serve    # Serve with Hugo server
+task build    # Production build
+task dev      # Dev mode with live reload
+task clean    # Clean public directory
+task test     # Validation checks
+task deploy   # Build + list output
 ```
 
 Install [Task](https://taskfile.dev/) to use these commands.
 
 ## License
 
-This theme is licensed under the MIT License. See [LICENSE](LICENSE) for more information.
+MIT. See [LICENSE](LICENSE).

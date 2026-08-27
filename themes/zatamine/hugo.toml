@@ -1,26 +1,69 @@
-# Default configuration for the theme (to be used as example in documentation)
-# This file should not be modified by users, but can be used to understand defaults.
+# Sample configuration for the zatamine theme.
+# Copy the relevant values into your site config (e.g. config/_default/hugo.yaml).
 
-baseURL = 'https://example.com'
-languageCode = 'en-US'
-title = 'Zatamine Theme Demo'
+baseURL = 'https://example.com/'
+languageCode = 'en-us'
+title = 'Zatamine'
+theme = 'zatamine'
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+# Pagination for the posts archive
+pagination.pagerSize = 6
+
+# Taxonomies
+taxonomies = ['tags']
+
+# Chroma syntax highlighting (dark, pairs with the palette)
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = 'base16-snazzy'
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[params]
+  description = 'Independent Software Engineer & SRE Consultant. Writing about Go, reliability, and running systems in production.'
+  author = 'Amine'
+  role = 'Independent Software Engineer & SRE Consultant'
+  email = 'hello@example.com'
+  availability = 'Available for new projects'
+  # Social links (used in the contact section + footer)
+  social = [
+    { name = 'GitHub', url = 'https://github.com/example' },
+    { name = 'X', url = 'https://x.com/example' },
+    { name = 'LinkedIn', url = 'https://linkedin.com/in/example' },
+  ]
 
 [[menus.main]]
-name = 'Home'
-pageRef = '/'
-weight = 10
+  name = 'About'
+  url = '/about/'
+  weight = 100
 
 [[menus.main]]
-name = 'Posts'
-pageRef = '/posts'
-weight = 20
+  name = 'What I Do'
+  url = '/#services'
+  weight = 200
 
 [[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
-weight = 30
+  name = 'Blog'
+  url = '/posts/'
+  weight = 300
+
+[[menus.main]]
+  name = 'Contact'
+  url = '/#contact'
+  weight = 400
 
 [module]
   [module.hugoVersion]
-    extended = false
-    min = "0.116.0"
+    extended = true
+    min = '0.116.0'
