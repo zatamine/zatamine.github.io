@@ -1,0 +1,16 @@
+title: zatamine — status
+updated: 2026-08-25
+line: all systems operational
+metrics:
+  - label: uptime
+    value: 99.98%
+  - label: p99 latency
+    value: 42ms
+  - label: incidents
+    value: 0 open
+stack:
+  - Go
+  - PostgreSQL
+  - Kubernetes
+  - Terraform
+  - Prometheus

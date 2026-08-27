@@ -1,0 +1,31 @@
+- icon: backend
+  title: Backend Engineering
+  description: Design and build resilient services in Go — APIs, workers, and data pipelines that stay fast under load.
+  points:
+    - Go services & gRPC/REST APIs
+    - PostgreSQL schema design & query tuning
+    - Caching, queues, and async processing
+
+- icon: sre
+  title: SRE & Reliability
+  description: Turn outages into systems that stay up. Observability, SLOs, and incident response done properly.
+  points:
+    - SLOs, error budgets & alerting that pages humans
+    - Prometheus / Grafana / OpenTelemetry
+    - Incident response & postmortems
+
+- icon: migrations
+  title: Zero-Downtime Migrations
+  description: Schema changes, data migrations, and service cutovers that never drop a request.
+  points:
+    - Expand/contract & dual-write strategies
+    - Backfills with bounded blast radius
+    - Rollback plans tested before they're needed
+
+- icon: devops
+  title: DevOps & IaC
+  description: Boring, reproducible infrastructure. Everything as code, everything reviewable.
+  points:
+    - Terraform & Pulumi
+    - Kubernetes, Helm & GitOps (Argo CD)
+    - CI/CD pipelines that don't surprise you
