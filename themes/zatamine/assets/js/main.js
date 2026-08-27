@@ -1,82 +1,55 @@
-// Dark mode toggle
-function initializeDarkMode() {
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
+/* zatamine theme — minimal JS: mobile nav + client-side tag filtering */
+(function () {
+  'use strict';
 
-  // Check for saved theme preference or respect OS setting
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-  const currentTheme = localStorage.getItem('theme');
+  /* ---------- Mobile nav toggle ---------- */
+  var toggle = document.querySelector('.nav-toggle');
+  var menu = document.getElementById('nav-menu');
 
-  // Apply theme on load
-  if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-  }
-
-  // Toggle function
-  function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  }
-
-  // Add event listener to toggle button if it exists
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', toggleTheme);
-  }
-}
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeDarkMode);
-} else {
-  // DOM already loaded
-  initializeDarkMode();
-}
-
-// Mobile menu toggle
-function initializeMobileMenu() {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navList = document.querySelector('.nav-list');
-
-  if (menuToggle && navList) {
-    menuToggle.addEventListener('click', function() {
-      const isExpanded = navList.classList.contains('show');
-      navList.classList.toggle('show');
-      
-      // Update aria-expanded attribute
-      menuToggle.setAttribute('aria-expanded', !isExpanded);
+  if (toggle && menu) {
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-  }
 
-  // Close mobile menu when clicking a link
-  if (navList) {
-    const navLinks = navList.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navList.classList.remove('show');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
+    // Close the menu after clicking a link (mobile)
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     });
-  }
 
-  // Close mobile menu when clicking outside
-  if (menuToggle && navList) {
-    document.addEventListener('click', (event) => {
-      if (!menuToggle.contains(event.target) && !navList.contains(event.target)) {
-        navList.classList.remove('show');
-        menuToggle.setAttribute('aria-expanded', 'false');
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
       }
     });
   }
-}
 
-// Initialize mobile menu when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeMobileMenu);
-} else {
-  // DOM already loaded
-  initializeMobileMenu();
-}
+  /* ---------- Client-side tag filtering (posts archive) ---------- */
+  var filters = document.querySelectorAll('.chip-filter');
+  var rows = document.querySelectorAll('.post-row-filterable');
+
+  if (filters.length && rows.length) {
+    filters.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var tag = btn.getAttribute('data-tag');
+
+        filters.forEach(function (b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+
+        rows.forEach(function (row) {
+          var tags = (row.getAttribute('data-tags') || '').trim();
+          var show = tag === 'all' || tags.split(/\s+/).indexOf(tag) !== -1;
+          row.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  }
+})();
