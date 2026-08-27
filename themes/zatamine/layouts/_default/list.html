@@ -1,41 +1,47 @@
 {{ define "main" }}
-  <header class="list-header">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
-  </header>
-  
-  <div class="posts-list">
-    {{ range .Pages }}
-      <article class="post-preview">
-        <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-        <p class="post-meta">
-          <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
-          {{ if .Params.author }}
-            <span>by {{ .Params.author }}</span>
-          {{ end }}
-          {{ if .ReadingTime }}
-            <span>· {{ .ReadingTime }} min read</span>
-          {{ end }}
-        </p>
-        {{ if .Params.featured_image }}
-          <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" class="featured-image">
-        {{ end }}
-        <p>{{ .Summary }}</p>
-        <a href="{{ .RelPermalink }}" class="read-more">Read more →</a>
-      </article>
-    {{ end }}
+  {{- $kind := .Kind -}}
+  {{- if eq $kind "taxonomy" }}
+  <div class="container list-page">
+    <header class="list-header">
+      <p class="list-eyebrow">Index</p>
+      <h1 class="list-title">Tags</h1>
+      <p class="list-sub">Browse posts by topic.</p>
+    </header>
+    <div class="tag-cloud">
+      {{- range .Data.Terms.Alphabetical }}
+      <a href="{{ .Page.RelPermalink }}" class="chip chip-tag">
+        {{ .Page.LinkTitle }} <span class="chip-count">{{ .Count }}</span>
+      </a>
+      {{- end }}
+    </div>
   </div>
 
-  <!-- Pagination -->
-  {{ if or .Paginator.HasPrev .Paginator.HasNext }}
-    <nav class="pagination">
-      {{ if .Paginator.HasPrev }}
-        <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
-      {{ end }}
-      <span>{{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }}</span>
-      {{ if .Paginator.HasNext }}
-        <a href="{{ .Paginator.Next.URL }}">Next →</a>
-      {{ end }}
-    </nav>
-  {{ end }}
+  {{- else if eq $kind "term" }}
+  <div class="container list-page">
+    <header class="list-header">
+      <p class="list-eyebrow">Tag</p>
+      <h1 class="list-title">{{ .Title }}</h1>
+      <p class="list-sub">{{ len .RegularPages }} post{{ if ne (len .RegularPages) 1 }}s{{ end }} tagged</p>
+    </header>
+    {{ partial "post-list.html" (dict "pages" .Paginator.Pages) }}
+    {{ partial "pagination.html" . }}
+  </div>
+
+  {{- else }}
+  <div class="container list-page">
+    <header class="list-header">
+      <h1 class="list-title">{{ .Title }}</h1>
+      <p class="list-sub">All posts, newest first.</p>
+    </header>
+    {{- if eq .Section "posts" }}
+    <div class="tag-filters" role="group" aria-label="Filter posts by tag">
+      <button type="button" class="chip chip-filter active" data-tag="all">All</button>
+      {{- range .Site.Taxonomies.tags.Alphabetical }}
+      <button type="button" class="chip chip-filter" data-tag="{{ .Page.LinkTitle | urlize }}">{{ .Page.LinkTitle }}</button>
+      {{- end }}
+    </div>
+    {{- end }}
+    {{ partial "post-list.html" (dict "pages" .RegularPages "filterable" true) }}
+  </div>
+  {{- end }}
 {{ end }}
