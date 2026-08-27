@@ -1,0 +1,27 @@
+{{- /*
+Renders a chronological list of posts.
+
+@context {page} pages The collection of pages to render.
+@context {bool} filterable When true, adds data attributes for client-side tag filtering.
+
+@example: {{ partial "post-list.html" (dict "pages" .Pages "filterable" true) }}
+*/ -}}
+{{- $pages := .pages -}}
+{{- $filterable := .filterable | default false -}}
+<div class="posts-list{{ if $filterable }} posts-list-filterable{{ end }}">
+  {{- range $pages }}
+  <article class="post-row{{ if $filterable }} post-row-filterable{{ end }}"
+    {{- if $filterable }} data-tags="{{ range .GetTerms "tags" }}{{ .Page.LinkTitle | urlize }} {{ end }}"{{ end -}}>
+    <div class="post-row-main">
+      <h2 class="post-row-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      {{- with .Summary }}
+      <p class="post-row-summary">{{ . | htmlUnescape | truncate 160 }}</p>
+      {{- end }}
+    </div>
+    <div class="post-row-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      <span class="post-row-read">{{ .ReadingTime }} min read</span>
+    </div>
+  </article>
+  {{- end }}
+</div>

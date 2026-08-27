@@ -1,0 +1,33 @@
+{{- $posts := where site.RegularPages "Section" "posts" | first 3 -}}
+{{- if $posts }}
+<section class="section recent container">
+  <div class="section-head section-head-row">
+    <div></div>
+      <h2 class="section-title">Recent Writing</h2>
+      <p class="section-sub">Notes on Go, reliability, and running systems in production.</p>
+    </div>
+    <a href="{{ "posts" | relURL }}" class="link-arrow">
+      All posts {{ partial "icons.html" (dict "name" "arrow") }}
+    </a>
+  </div>
+  <div class="posts-grid">
+    {{- range $posts }}
+    <article class="post-card">
+      <a href="{{ .RelPermalink }}" class="post-card-link">
+        <div class="post-card-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          <span class="post-card-read">{{ .ReadingTime }} min read</span>
+        </div>
+        <h3 class="post-card-title">{{ .Title }}</h3>
+        <p class="post-card-summary">{{ .Summary | htmlUnescape | truncate 120 }}</p>
+        <div class="post-card-tags">
+          {{- range .GetTerms "tags" }}
+          <span class="chip chip-sm">{{ .LinkTitle }}</span>
+          {{- end }}
+        </div>
+      </a>
+    </article>
+    {{- end }}
+  </div>
+</section>
+{{- end }}

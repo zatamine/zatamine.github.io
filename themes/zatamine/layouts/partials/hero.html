@@ -1,0 +1,48 @@
+{{- $status := hugo.Data.status -}}
+<section class="hero container">
+  <div class="hero-text">
+    <p class="hero-greeting">Hi, I'm</p>
+    <h1 class="hero-title">{{ site.Params.author | default site.Title }}</h1>
+    {{- with site.Params.role }}
+    <p class="hero-role">{{ . }}</p>
+    {{- end }}
+    {{- with site.Params.description }}
+    <p class="hero-sub">{{ . }}</p>
+    {{- end }}
+    <div class="hero-actions">
+      <a href="{{ "/" | relURL }}#contact" class="btn btn-primary">Get in touch</a>
+      <a href="{{ "posts" | relURL }}" class="btn btn-ghost">Read the blog</a>
+    </div>
+  </div>
+  <div class="hero-status">
+    <div class="status-card" role="status">
+      <div class="status-card-header">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="status-title">{{ $status.title | default "status" }}</span>
+        {{- with $status.updated }}
+        <span class="status-time">{{ . }}</span>
+        {{- end }}
+      </div>
+      <div class="status-card-body">
+        <p class="status-line">{{ $status.line | default "All systems operational." }}</p>
+        {{- with $status.metrics }}
+        <dl class="status-metrics">
+          {{- range . }}
+          <div class="status-metric">
+            <dt>{{ .label }}</dt>
+            <dd>{{ .value }}</dd>
+          </div>
+          {{- end }}
+        </dl>
+        {{- end }}
+        {{- with $status.stack }}
+        <div class="status-stack">
+          {{- range . }}
+          <span class="chip">{{ . }}</span>
+          {{- end }}
+        </div>
+        {{- end }}
+      </div>
+    </div>
+  </div>
+</section>

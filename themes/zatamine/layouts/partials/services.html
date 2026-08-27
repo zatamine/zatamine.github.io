@@ -1,0 +1,22 @@
+<section class="section services container" id="services">
+  <div class="section-head">
+    <h2 class="section-title">What I Do</h2>
+    <p class="section-sub">Focused engineering services for teams that ship — and stay up.</p>
+  </div>
+  <div class="services-grid">
+    {{- range hugo.Data.services }}
+    <article class="service-card">
+      <div class="service-icon" aria-hidden="true">{{ partial "icons.html" (dict "name" .icon) }}</div>
+      <h3 class="service-title">{{ .title }}</h3>
+      <p class="service-desc">{{ .description }}</p>
+      {{- with .points }}
+      <ul class="service-points">
+        {{- range . }}
+        <li>{{ . }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+    </article>
+    {{- end }}
+  </div>
+</section>

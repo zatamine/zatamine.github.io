@@ -1,0 +1,22 @@
+<section class="section contact container" id="contact">
+  <div class="contact-inner">
+    <h2 class="section-title">Let's work together</h2>
+    <p class="section-sub">Have a project in mind, or need help keeping something reliable? I'd love to hear about it.</p>
+    <div class="contact-actions">
+      {{- with site.Params.email }}
+      <a href="mailto:{{ . }}" class="btn btn-primary">
+        {{ partial "icons.html" (dict "name" "mail") }} Send an email
+      </a>
+      {{- end }}
+    </div>
+    {{- with site.Params.social }}
+    <div class="contact-social">
+      {{- range . }}
+      <a href="{{ .url }}" target="_blank" rel="noopener" class="social-link" aria-label="{{ .name }}">
+        {{ partial "icons.html" (dict "name" (lower .name)) }}
+      </a>
+      {{- end }}
+    </div>
+    {{- end }}
+  </div>
+</section>

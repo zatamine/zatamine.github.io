@@ -1,27 +1,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
-<meta name="description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+{{- $desc := .Description | default (.Summary | htmlUnescape | truncate 160) | default site.Params.description -}}
+<meta name="description" content="{{ $desc }}">
 <link rel="canonical" href="{{ .Permalink }}">
-{{ if strings.Contains .Site.BaseURL "index.xml" }}
-  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}">
-{{ else }}
-  <link rel="alternate" type="application/rss+xml" href="{{ .Site.BaseURL }}index.xml">
-{{ end }}
+{{- with site.GetPage "/index.xml" }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+{{- end }}
 
-<!-- Open Graph / Facebook -->
+<!-- Open Graph -->
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
-<meta property="og:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
-<meta property="og:image" content="{{ site.Params.image | default "https://example.com/image.jpg" }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
+{{- with site.Params.og_image }}
+<meta property="og:image" content="{{ . }}">
+{{- end }}
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="{{ .Permalink }}">
-<meta property="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}">
-<meta property="twitter:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Summary | default (printf "%s - %s" .Title site.Title) }}{{ end }}">
-<meta property="twitter:image" content="{{ site.Params.image | default "https://example.com/image.jpg" }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ $desc }}">
 
-{{ partialCached "head/css.html" . }}
-{{ partialCached "head/js.html" . }}
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" href="{{ "favicon.ico" | relURL }}">
+
+{{- $css := resources.Get "css/main.css" }}
+{{- if hugo.IsProduction }}
+  {{- $css = $css | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- else }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{- end }}
+
+{{- $js := resources.Get "js/main.js" }}
+{{- if hugo.IsProduction }}
+  {{- $js = $js | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{- else }}
+  <script src="{{ $js.RelPermalink }}" defer></script>
+{{- end }}

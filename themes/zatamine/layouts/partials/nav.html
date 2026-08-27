@@ -1,0 +1,27 @@
+<header class="site-header">
+  <nav class="nav container" aria-label="Main">
+    <a href="{{ "/" | relURL }}" class="nav-brand">
+      <span class="nav-monogram">Z</span>
+      <span class="nav-name">zatamine</span>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links" id="nav-menu">
+        {{- range site.Menus.main }}
+        <li></li>
+          <a href="{{ .URL }}"{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
+        </li>
+        {{- end }}
+      </ul>
+      {{- with site.Params.availability }}
+      <a href="{{ "/" | relURL }}#contact" class="nav-badge">
+        <span class="nav-badge-dot"></span>{{ . }}
+      </a>
+      {{- end }}
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </nav>
+</header>
