@@ -1,26 +1,49 @@
-locale: 'en-US'
-title: zatamine's blog
+baseURL: 'https://blog.zatamine.com/'
+locale: 'en-us'
+title: zatamine
 theme: 'zatamine'
-paginate: 5
 
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-googleAnalytics: ""
+# Pagination for the posts archive
+pagination:
+  pagerSize: 6
+
+# Taxonomies (Hugo ≥0.156 uses the `kinds` block; `taxonomies:` is ignored)
+kinds:
+  taxonomy:
+    tags: true
+
+# Chroma syntax highlighting (dark, pairs with the palette)
+markup:
+  highlight:
+    noClasses: false
+    style: 'base16-snazzy'
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
 
 minify:
   disableXML: true
   minifyOutput: true
 
-
 params:
-  subtitle: zatamine's blog
-  title: zatamine's blog
-  description: "Software Engineering life"
-  keywords: [Software, Engineering, development]
-  author: Amine
+  description: 'Independent Software Engineer & SRE Consultant. Writing about Go, reliability, and running systems in production.'
+  author: 'Amine'
+  role: 'Independent Software Engineer & SRE Consultant'
+  email: 'hello@zatamine.com'
+  availability: 'Available for new projects'
+  # Social links (used in the contact section)
+  social:
+    - name: 'GitHub'
+      url: 'https://github.com/zatamine'
+    - name: 'X'
+      url: 'https://x.com/zatamine'
+    - name: 'LinkedIn'
+      url: 'https://linkedin.com/in/zatamine'
 
 menus:
   main:
@@ -28,7 +51,20 @@ menus:
       name: About
       url: /about/
       weight: 100
-    - identifier: posts
-      name: Posts 
-      url: /posts/
+    - identifier: services
+      name: What I Do
+      url: /#services
       weight: 200
+    - identifier: posts
+      name: Blog
+      url: /posts/
+      weight: 300
+    - identifier: contact
+      name: Contact
+      url: /#contact
+      weight: 400
+
+module:
+  hugoVersion:
+    extended: true
+    min: '0.116.0'
